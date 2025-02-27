@@ -1,6 +1,6 @@
 # Gestión de Empleados
 
-![Gestión de Empleados](https://via.placeholder.com/800x200.png?text=Gestión+de+Empleados)
+![Gestión de Empleados]([https://via.placeholder.com/800x200.png?text=Gestión+de+Empleados](https://media.gettyimages.com/id/1400038121/es/vector/concepto-de-dise%C3%B1o-de-banner-vectorial-relacionado-con-recursos-humanos-estilo-de-l%C3%ADnea.jpg?s=2048x2048&w=gi&k=20&c=lKNxPNjHdoz-biurSIExz_-LtG2tyAP7GSKgo_FyiG0=))
 
 Este proyecto es una aplicación de gestión de empleados construida con Laravel. Permite a los administradores registrar, editar y eliminar empleados y departamentos.
 
