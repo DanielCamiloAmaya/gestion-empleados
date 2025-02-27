@@ -4,7 +4,7 @@
 
 Este proyecto es una aplicación de gestión de empleados construida con Laravel. Permite a los administradores registrar, editar y eliminar empleados y departamentos.
 
-## Requisitos previos
+## Requisitos Previos
 
 Antes de empezar, asegúrate de tener instalado lo siguiente:
 
@@ -22,111 +22,122 @@ Sigue estos pasos para configurar y ejecutar el proyecto localmente.
 ```bash
 git clone https://github.com/tu-usuario/gestion-empleados.git
 cd gestion-empleados
+```
 
-Instalación
+### 2. Instalar dependencias de PHP y JavaScript
 
-Sigue estos pasos para configurar y ejecutar el proyecto localmente.
-1. Clonar el repositorio
-
-bash
-
-git clone https://github.com/tu-usuario/gestion-empleados.git
-cd gestion-empleados
-
-2. Instalar dependencias de PHP y JavaScript
-
-bash
-
+```bash
 composer install
 npm install
+```
 
-3. Configurar el archivo .env
+### 3. Configurar el archivo `.env`
 
-Copia el archivo .env.example y renómbralo a .env.
+Copia el archivo `.env.example` y renómbralo a `.env`.
 
-bash
-
+```bash
 cp .env.example .env
+```
 
-Asegúrate de configurar las variables de entorno para la base de datos y otras configuraciones necesarias en el archivo .env.
+Asegúrate de configurar las variables de entorno para la base de datos y otras configuraciones necesarias en el archivo `.env`.
 
-env
-
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=nombre_de_tu_base_de_datos
 DB_USERNAME=tu_usuario
 DB_PASSWORD=tu_contraseña
+```
 
-4. Generar la clave de la aplicación
+### 4. Generar la clave de la aplicación
 
-bash
-
+```bash
 php artisan key:generate
+```
 
-5. Ejecutar migraciones y sembrar la base de datos
+### 5. Ejecutar migraciones y sembrar la base de datos
 
-bash
-
+```bash
 php artisan migrate --seed
+```
 
-6. Compilar activos front-end
+### 6. Compilar activos front-end
 
-bash
-
+```bash
 npm run dev
+```
 
-Ejecución
+## Ejecución
 
 Para ejecutar la aplicación, usa el siguiente comando:
 
-bash
-
+```bash
 php artisan serve
+```
 
-Abre tu navegador web y ve a http://127.0.0.1:8000.
-Pruebas
-Pruebas Unitarias y de Integración
+Luego, abre tu navegador web y accede a: [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+## Pruebas
+
+### Pruebas Unitarias y de Integración
 
 Para ejecutar las pruebas unitarias y de integración, usa el siguiente comando:
 
-bash
-
+```bash
 php artisan test
+```
 
-Pruebas Manuales
-Registrar Administrador:
+### Pruebas Manuales
 
-Ve a http://127.0.0.1:8000/admin/register y completa el formulario de registro para crear una cuenta de administrador.
-Login de Administrador:
+#### Registrar Administrador
 
-Ve a http://127.0.0.1:8000/admin/login e inicia sesión con las credenciales del administrador.
-Home de Administrador:
+1. Ve a [http://127.0.0.1:8000/admin/register](http://127.0.0.1:8000/admin/register) y completa el formulario de registro.
+2. Crea una cuenta de administrador.
 
-Al iniciar sesión de administrador, entrarás en http://127.0.0.1:8000/admin/home y contarás con credenciales para buscar, agregar, editar y eliminar.
-Gestionar Empleados:
+#### Login de Administrador
 
-Después de iniciar sesión, navega a http://127.0.0.1:8000/empleados para hacer búsqueda por nombre o departamento del empleado, además de agregar, editar o eliminar empleados.
-Gestionar Departamentos:
+1. Accede a [http://127.0.0.1:8000/admin/login](http://127.0.0.1:8000/admin/login) e inicia sesión con las credenciales de administrador.
 
-Navega a http://127.0.0.1:8000/departamentos para agregar, editar o eliminar departamentos.
-Registrar Usuario:
+#### Home de Administrador
 
-Ve a http://127.0.0.1:8000/register y completa el formulario de registro para crear una cuenta de usuario.
-Login de usuario:
+1. Al iniciar sesión, entrarás en [http://127.0.0.1:8000/admin/home](http://127.0.0.1:8000/admin/home).
+2. Desde aquí, puedes buscar, agregar, editar y eliminar empleados y departamentos.
 
-Ve a http://127.0.0.1:8000/login e inicia sesión con las credenciales del usuario.
-Home de usuario:
+#### Gestionar Empleados
 
-Al iniciar sesión de usuario, entrarás en http://127.0.0.1:8000/home y no contarás con credenciales para agregar, editar y eliminar, aunque sí contarás con credenciales para buscar.
-Estructura del Proyecto
+1. Inicia sesión como administrador.
+2. Navega a [http://127.0.0.1:8000/empleados](http://127.0.0.1:8000/empleados) para:
+   - Buscar empleados por nombre o departamento.
+   - Agregar, editar o eliminar empleados.
 
-    app/ - Contiene los controladores, modelos y otros componentes de la lógica de la aplicación.
-    resources/views/ - Contiene las vistas de Blade para la interfaz de usuario.
-    routes/web.php - Define las rutas de la aplicación.
-    database/migrations/ - Contiene las migraciones de la base de datos.
+#### Gestionar Departamentos
 
-## License
+1. Inicia sesión como administrador.
+2. Navega a [http://127.0.0.1:8000/departamentos](http://127.0.0.1:8000/departamentos) para agregar, editar o eliminar departamentos.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Registrar Usuario
+
+1. Ve a [http://127.0.0.1:8000/register](http://127.0.0.1:8000/register) y completa el formulario de registro.
+
+#### Login de Usuario
+
+1. Accede a [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login) e inicia sesión con las credenciales de usuario.
+
+#### Home de Usuario
+
+1. Al iniciar sesión, entrarás en [http://127.0.0.1:8000/home](http://127.0.0.1:8000/home).
+2. No podrás agregar, editar ni eliminar empleados o departamentos, pero sí realizar búsquedas.
+
+## Estructura del Proyecto
+
+- `app/` - Contiene los controladores, modelos y otros componentes de la lógica de la aplicación.
+- `resources/views/` - Contiene las vistas de Blade para la interfaz de usuario.
+- `routes/web.php` - Define las rutas de la aplicación.
+- `database/migrations/` - Contiene las migraciones de la base de datos.
+
+## Licencia
+
+El framework Laravel es software de código abierto licenciado bajo la [licencia MIT](https://opensource.org/licenses/MIT).
+
+
