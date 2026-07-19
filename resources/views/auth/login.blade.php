@@ -1,23 +1,30 @@
 @extends('layouts.auth-master')
 
+@section('title', 'Portal del empleado')
+
 @section('content')
-<form action="/login" method="POST">
-    @csrf
-    <h1>Login</h1>
-    @include('layouts.partials.messages')
-    <div class=" form-floating mb-3">
-    <input type="text" placeholder="username" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <label for="exampleInputEmail1" class="form-label">Username/ Dirección de correo electrónico</label>
-    <div id="emailHelp" class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
-    </div>
-    <div class=" form-floating mb-3">
-    <input type="password" placeholder="password" name="password" class="form-control" id="exampleInputPassword1">
-    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-    </div>
-    <div class="mb-3">
-        <a href="/register">Crear cuenta</a>
-    </div>
-    <button type="submit" class="btn btn-primary">Enviar</button>
-</form>    
-    
-@endsection  
+    <span class="auth-kicker">Bienvenido de nuevo</span>
+    <h2>Tu espacio de trabajo</h2>
+    <p class="auth-intro">Consulta tu perfil, equipo y directorio corporativo en un entorno protegido.</p>
+
+    <form action="{{ route('login') }}" method="POST" class="auth-form">
+        @csrf
+        <div class="field">
+            <label for="workspace">Espacio de trabajo</label>
+            <input class="input" id="workspace" type="text" name="workspace" value="{{ old('workspace', config('app.default_organization')) }}" autocomplete="organization" required placeholder="mi-empresa">
+        </div>
+        <div class="field">
+            <label for="username">Usuario o correo corporativo</label>
+            <input class="input" id="username" type="text" name="username" value="{{ old('username') }}" autocomplete="username" required autofocus placeholder="nombre@empresa.com">
+        </div>
+        <div class="field">
+            <label for="password">Contraseña</label>
+            <input class="input" id="password" type="password" name="password" autocomplete="current-password" required placeholder="••••••••••••">
+            <a class="text-link" href="{{ route('recovery.request', ['actor' => 'employee', 'workspace' => old('workspace', config('app.default_organization'))]) }}">¿Olvidaste tu contraseña?</a>
+        </div>
+        <p class="session-policy">Por seguridad, la sesión expira tras 30 minutos de inactividad y al cerrar el navegador.</p>
+        <button type="submit" class="button button-primary">Entrar a PeopleOS <span>→</span></button>
+    </form>
+
+    <p class="auth-switch">¿Eres parte de Recursos Humanos? <a href="{{ route('admin.login') }}">Acceso administrativo</a></p>
+@endsection

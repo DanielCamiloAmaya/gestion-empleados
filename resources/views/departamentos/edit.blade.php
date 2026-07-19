@@ -1,19 +1,8 @@
 @extends('layouts.app-master')
-
+@section('title', 'Editar '.$departamento->nombre)
+@section('eyebrow', 'Diseño organizacional')
+@section('page-title', 'Editar departamento')
 @section('content')
-    <div class="container mt-5">
-        <h1>Editar Departamento</h1>
-
-        <form method="POST" action="{{ route('departamentos.update', $departamento) }}">
-            @csrf
-            @method('PUT')
-
-            <div class="form-group mt-5">
-                <label for="nombre">Nombre del Departamento</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $departamento->nombre }}" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Actualizar Departamento</button>
-        </form>
-    </div>
+    <div class="page-heading"><div><h2>{{ $departamento->nombre }}</h2><p>Actualiza la definición del área manteniendo sus relaciones actuales.</p></div></div>
+    <form method="POST" action="{{ route('departamentos.update', $departamento) }}" class="form-shell">@csrf @method('PUT')<div class="form-card">@include('departamentos._form')<div class="form-actions"><a class="button button-secondary" href="{{ route('departamentos.index') }}">Cancelar</a><button class="button button-primary" type="submit">Guardar cambios</button></div></div><aside class="aside-card"><h3>Impacto del cambio</h3><p>El nuevo nombre será visible inmediatamente en el directorio y en todos los perfiles asociados.</p></aside></form>
 @endsection

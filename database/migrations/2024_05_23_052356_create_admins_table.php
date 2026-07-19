@@ -24,4 +24,3 @@ class CreateAdminsTable extends Migration
         Schema::dropIfExists('admins');
     }
 }
-

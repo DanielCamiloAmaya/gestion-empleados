@@ -18,7 +18,7 @@ class CreateDepartamentosTable extends Migration
             $table->string('nombre')->unique();
             $table->timestamps();
         });
-        
+
         // Insertar datos iniciales
         DB::table('departamentos')->insert([
             ['nombre' => 'Finanzas'],
@@ -39,4 +39,3 @@ class CreateDepartamentosTable extends Migration
         Schema::dropIfExists('departamentos');
     }
 }
-

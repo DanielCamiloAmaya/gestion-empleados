@@ -1,27 +1,16 @@
-@if (isset($errors) && count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul class="list-unstyled mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>                
-            @endforeach
+@if ($errors->any())
+    <div class="notice notice-error" role="alert">
+        <strong>Revisa la información</strong>
+        <ul>
+            @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach
         </ul>
-    </div>   
+    </div>
 @endif
 
-@if (Session::get('success', false))
-    <?php $data = Session::get('success');?>
-    @if (is_array($data))
-        @foreach ($data as $message)
-            <div class="alert alert-success">
-                <i class="fa fa-check"></i>
-                {{ $message }}
-            </div>
-        @endforeach
-    @else
-        <div class="alert alert-success">
-            <i class="fa fa-check"></i>
-                {{ $data }}
-        </div>
-    @endif
-    
+@if (session('success'))
+    <div class="notice notice-success" role="status"><span>✓</span><p>{{ session('success') }}</p></div>
+@endif
+
+@if (session('error'))
+    <div class="notice notice-error" role="alert"><span>!</span><p>{{ session('error') }}</p></div>
 @endif

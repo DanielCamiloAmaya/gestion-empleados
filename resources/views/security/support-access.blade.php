@@ -1,0 +1,10 @@
+@extends('layouts.app-master')
+@section('title','Accesos de soporte')
+@section('eyebrow','Control del cliente')
+@section('page-title','Accesos de soporte')
+@section('content')
+<section class="security-hero reveal-item"><div><span class="security-state">Aprobación explícita</span><h2>PeopleOS no entra sin tu autorización</h2><p>Cada solicitud identifica especialista, ticket, motivo, alcances de solo lectura y vencimiento automático.</p></div><div class="security-orbit" aria-hidden="true"><span></span><strong>JIT</strong></div></section>
+<section class="panel reveal-item"><header class="panel-header"><div><h3>Solicitudes y accesos</h3><p>Puedes rechazar o revocar cualquier acceso inmediatamente.</p></div></header><div class="support-access-list">
+@forelse($grants as $grant)<article><div><span class="status-chip status-{{ $grant->status === 'approved' ? 'approved' : ($grant->status === 'pending' ? 'pending' : 'rejected') }}">{{ $grant->status }}</span><h3>{{ $grant->ticket_reference }} · {{ $grant->platformUser->name }}</h3><p>{{ $grant->reason }}</p><small>{{ implode(' · ',$grant->scopes) }} · vence {{ $grant->expires_at->format('d/m/Y H:i') }}</small></div><div class="actions">@if($grant->status === 'pending' && $grant->expires_at->isFuture())<form method="POST" action="{{ route('support-access.review',$grant) }}">@csrf @method('PATCH')<input type="hidden" name="decision" value="approved"><button class="button button-primary">Aprobar</button></form><form method="POST" action="{{ route('support-access.review',$grant) }}">@csrf @method('PATCH')<input type="hidden" name="decision" value="rejected"><button class="button button-danger">Rechazar</button></form>@elseif($grant->status === 'approved' && $grant->expires_at->isFuture())<form method="POST" action="{{ route('support-access.revoke',$grant) }}">@csrf @method('DELETE')<button class="button button-danger">Revocar ahora</button></form>@endif</div></article>@empty<div class="empty-state"><strong>No hay solicitudes de soporte.</strong><span>PeopleOS no tiene acceso temporal pendiente o activo.</span></div>@endforelse
+</div></section>
+@endsection

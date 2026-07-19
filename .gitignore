@@ -18,3 +18,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/.playwright-cli
+/playwright-report
+/test-results
+/peopleos-*-final.png
+/.agents
+/skills-lock.json

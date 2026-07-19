@@ -1,0 +1,63 @@
+name: Quality and security
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer:v2
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Prepare application environment
+        run: cp .env.example .env
+
+      - name: Audit PHP dependencies
+        run: composer audit --locked --no-interaction
+
+      - name: Check PHP style
+        run: vendor/bin/pint --test
+
+      - name: Run backend tests
+        run: php artisan test
+
+      - name: Verify application readiness controls
+        run: php artisan peopleos:readiness --profile=application --json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Audit JavaScript supply chain
+        run: npm audit
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser workflows
+        run: npm run test:e2e

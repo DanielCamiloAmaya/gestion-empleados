@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Admin;
+use App\Models\PlatformUser;
+use App\Models\User;
+
 return [
 
     /*
@@ -44,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'platform' => [
+            'driver' => 'session',
+            'provider' => 'platform_users',
+        ],
     ],
 
     /*
@@ -66,11 +74,15 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => User::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => Admin::class,
+        ],
+        'platform_users' => [
+            'driver' => 'eloquent',
+            'model' => PlatformUser::class,
         ],
 
         // 'users' => [

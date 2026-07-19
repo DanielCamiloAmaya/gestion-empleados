@@ -2,43 +2,38 @@
 
 namespace Database\Factories;
 
+use App\Models\Departamento;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
+        $firstName = fake()->firstName();
+        $lastName = fake()->lastName();
+
         return [
-            'name' => fake()->name(),
+            'employee_code' => 'EMP-'.fake()->unique()->numerify('#####'),
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'departamento_id' => fn () => Departamento::query()->inRandomOrder()->value('id'),
+            'job_title' => fake()->jobTitle(),
+            'employment_status' => 'active',
+            'employment_type' => 'full_time',
+            'hire_date' => fake()->dateTimeBetween('-5 years', 'now'),
+            'phone' => fake()->phoneNumber(),
+            'location' => fake()->city(),
             'email' => fake()->unique()->safeEmail(),
+            'username' => Str::lower(fake()->unique()->userName()),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => 'SecurePassword1!',
             'remember_token' => Str::random(10),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    public function inactive(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(fn () => ['employment_status' => 'inactive']);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
@@ -18,7 +19,7 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -27,21 +28,25 @@ class LoginRequest extends FormRequest
             'password' => 'required',
         ];
     }
-    public function getCredentials(){
+
+    public function getCredentials()
+    {
         $username = $this->get('username');
 
-        if($this->isEmail($username)){
+        if ($this->isEmail($username)) {
             return [
                 'email' => $username,
-                'password' => $this->get('password')
+                'password' => $this->get('password'),
             ];
         }
+
         return $this->only('username', 'password');
     }
 
-    public function isEmail($value){
+    public function isEmail($value)
+    {
         $factory = $this->container->make(ValidationFactory::class);
 
-        return !$factory->make(['username'=>$value],['username'=>'email'])->fails();
+        return ! $factory->make(['username' => $value], ['username' => 'email'])->fails();
     }
 }
