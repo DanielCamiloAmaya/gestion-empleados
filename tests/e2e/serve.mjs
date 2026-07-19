@@ -11,7 +11,7 @@ execFileSync('php', ['artisan', 'migrate:fresh', '--seed', '--seeder=E2eSeeder',
     env: process.env,
 });
 
-const server = spawn('php', ['artisan', 'serve', '--host=127.0.0.1', '--port=8001'], {
+const server = spawn('php', ['artisan', 'serve', '--host=127.0.0.1', '--port=8001', '--no-reload'], {
     cwd: process.cwd(),
     stdio: 'inherit',
     env: process.env,
