@@ -1,12 +1,13 @@
 {
-    "name": "laravel/laravel",
+    "name": "danielcamiloamaya/peopleos",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "PeopleOS: plataforma SaaS multiempresa para gestión de personas, talento y gobierno empresarial.",
+    "keywords": ["peopleops", "hris", "human-resources", "saas", "laravel", "multi-tenant"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.0",
+        "firebase/php-jwt": "^7.0",
+        "laravel/framework": "^12.64",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
@@ -15,7 +16,7 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
-        "phpunit/phpunit": "^11.0.1",
+        "phpunit/phpunit": "^11.5.50",
         "spatie/laravel-ignition": "^2.4"
     },
     "autoload": {

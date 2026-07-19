@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LogoutAdminController extends Controller
+{
+    public function logoutAdmin(Request $request)
     {
-        public function logoutAdmin(){
-        // Cierra la sesión del usuario administrador
         Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        // Redirige al usuario a la página de inicio de sesión
         return redirect()->route('admin.login');
     }
 }
-

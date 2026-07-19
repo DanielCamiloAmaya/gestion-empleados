@@ -1,0 +1,87 @@
+name: Security assurance
+on:
+  pull_request:
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  sast-and-sbom:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: OWASP-oriented static analysis
+        run: pip install semgrep && semgrep scan --config p/owasp-top-ten --error --metrics=off app routes config
+      - name: Generate CycloneDX SBOM
+        uses: anchore/sbom-action@v0
+        with: {path: '.', format: cyclonedx-json, output-file: peopleos-sbom.cdx.json}
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with: {name: peopleos-sbom, path: peopleos-sbom.cdx.json, retention-days: 90}
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
+        with: {fail-on-severity: high}
+  dast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Build ephemeral target
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress
+          npm ci
+          npm run build
+          cp .env.example .env
+          php artisan key:generate
+          touch database/security.sqlite
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=${GITHUB_WORKSPACE}/database/security.sqlite" >> .env
+          echo "APP_ENV=testing" >> .env
+          echo "APP_DEBUG=false" >> .env
+          php artisan migrate --seed --force
+      - name: Start isolated application
+        run: |
+          php artisan serve --host=127.0.0.1 --port=8080 > storage/logs/dast-server.log 2>&1 &
+          for attempt in {1..30}; do
+            curl --fail --silent http://127.0.0.1:8080/health/ready && exit 0
+            sleep 2
+          done
+          cat storage/logs/dast-server.log
+          exit 1
+      - name: OWASP ZAP baseline
+        run: >
+          docker run --network host
+          -v "${GITHUB_WORKSPACE}:/zap/wrk/:rw"
+          -t ghcr.io/zaproxy/zaproxy:stable
+          zap-baseline.py
+          -t http://127.0.0.1:8080
+          -m 3
+          -I
+          -r zap-report.html
+      - name: Upload DAST evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-baseline-report
+          path: |
+            zap-report.html
+            storage/logs/dast-server.log
+          retention-days: 90

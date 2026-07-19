@@ -44,6 +44,20 @@ return [
             'throw' => false,
         ],
 
+        'deliverables' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/deliverables'),
+            'visibility' => 'private',
+            'throw' => true,
+        ],
+
+        'employee_documents' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/employee-documents'),
+            'visibility' => 'private',
+            'throw' => true,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

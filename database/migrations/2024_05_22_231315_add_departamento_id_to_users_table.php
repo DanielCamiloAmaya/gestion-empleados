@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             // Agregar la columna 'departamento_id' después de la columna 'last_name'
             $table->unsignedBigInteger('departamento_id')->after('last_name');
-            
+
             // Crear la clave foránea
             $table->foreign('departamento_id')
-                  ->references('id')
-                  ->on('departamentos')
-                  ->onDelete('restrict')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('departamentos')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
         });
     }
 
@@ -36,5 +36,3 @@ return new class extends Migration
         });
     }
 };
-
-
