@@ -37,6 +37,6 @@ class LeavePolicyController extends Controller
         $data = $request->validate(['date' => ['required', 'date'], 'name' => ['required', 'string', 'max:120']]);
         Holiday::updateOrCreate(['date' => $data['date']], $data);
 
-        return back()->with('success','Festivo agregado al calendario laboral.');
+        return back()->with('success', 'Festivo agregado al calendario laboral.');
     }
 }

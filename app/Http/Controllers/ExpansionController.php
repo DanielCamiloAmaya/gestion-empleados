@@ -87,6 +87,6 @@ class ExpansionController extends Controller
         $d = $r->validate(['user_id' => ['required', Rule::exists('users', 'id')], 'base_salary' => ['required', 'numeric', 'min:0'], 'currency' => ['required', 'string', 'size:3'], 'frequency' => ['required', Rule::in(['hourly', 'monthly', 'annual'])], 'variable_target' => ['required', 'numeric', 'min:0'], 'pay_grade' => ['nullable', 'string', 'max:40'], 'effective_from' => ['required', 'date']]);
         CompensationRecord::create([...$d, 'created_by' => auth('admin')->id()]);
 
-        return back()->with('success','Compensación registrada en el historial confidencial.');
+        return back()->with('success', 'Compensación registrada en el historial confidencial.');
     }
 }

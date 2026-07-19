@@ -71,6 +71,6 @@ class EmployeeDocumentController extends Controller
         $signature = $document->signatures()->create(['user_id' => auth()->id(), 'signer_name' => $data['signer_name'], 'document_sha256' => $document->sha256, 'signature_hash' => hash('sha256', implode('|', [$document->sha256, auth()->id(), $signedAt->toIso8601String(), Str::random(32)])), 'ip_address' => $request->ip(), 'user_agent' => Str::limit((string) $request->userAgent(), 500, ''), 'signed_at' => $signedAt]);
         AuditLog::record($request, 'document.signed', $signature, [], ['document_id' => $document->id, 'document_sha256' => $document->sha256]);
 
-        return back()->with('success','Firma electrónica registrada con sello de integridad y trazabilidad.');
+        return back()->with('success', 'Firma electrónica registrada con sello de integridad y trazabilidad.');
     }
 }
