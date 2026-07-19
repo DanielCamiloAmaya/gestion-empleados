@@ -7,7 +7,6 @@ if (!existsSync(databasePath)) writeFileSync(databasePath, '');
 const publicPath = path.resolve('public');
 const serverScript = path.resolve('vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php');
 const serverEnvironment = { ...process.env };
-if (process.platform !== 'win32') serverEnvironment.PHP_CLI_SERVER_WORKERS ||= '4';
 
 execFileSync('php', ['artisan', 'migrate:fresh', '--seed', '--seeder=E2eSeeder', '--force'], {
     cwd: process.cwd(),
