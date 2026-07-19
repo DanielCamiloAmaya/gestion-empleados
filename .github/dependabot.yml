@@ -2,12 +2,54 @@ version: 2
 updates:
   - package-ecosystem: composer
     directory: /
-    schedule: {interval: weekly}
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/Bogota
     open-pull-requests-limit: 5
+    groups:
+      composer-routine-updates:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: npm
     directory: /
-    schedule: {interval: weekly}
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:15"
+      timezone: America/Bogota
     open-pull-requests-limit: 5
+    groups:
+      fontsource-routine-updates:
+        patterns:
+          - "@fontsource/*"
+          - "@fontsource-variable/*"
+        update-types:
+          - minor
+          - patch
+      npm-routine-updates:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: github-actions
     directory: /
-    schedule: {interval: monthly}
+    schedule:
+      interval: monthly
+      time: "09:30"
+      timezone: America/Bogota
+    open-pull-requests-limit: 5
+    groups:
+      github-actions-routine-updates:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
