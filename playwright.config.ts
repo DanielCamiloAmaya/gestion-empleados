@@ -6,6 +6,8 @@ const applicationEnvironment = {
     APP_ENV: 'testing',
     APP_KEY: 'base64:CZNGUWf/tfXzPUunVmzDl6OPfABeze9i7t6YsoRzgsI=',
     APP_DEBUG: 'false',
+    APP_MAINTENANCE_DRIVER: 'file',
+    BCRYPT_ROUNDS: '4',
     DB_CONNECTION: 'sqlite',
     DB_DATABASE: databasePath,
     SESSION_DRIVER: 'file',
