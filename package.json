@@ -8,7 +8,7 @@
         "test:e2e:headed": "playwright test --headed --reporter=line"
     },
     "devDependencies": {
-        "@fontsource-variable/manrope": "^5.2.8",
+        "@fontsource-variable/manrope": "^5.3.0",
         "@fontsource-variable/sora": "^5.2.8",
         "@fontsource/ibm-plex-mono": "^5.2.7",
         "@playwright/test": "^1.61.1",
