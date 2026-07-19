@@ -2,6 +2,8 @@ name: Quality and security
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 permissions:
@@ -14,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: PHP 8.2
         uses: shivammathur/setup-php@v2
@@ -24,7 +26,7 @@ jobs:
           tools: composer:v2
 
       - name: Node 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: npm
