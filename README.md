@@ -4,11 +4,11 @@
 
 <p align="center">
   <a href="https://github.com/DanielCamiloAmaya/gestion-empleados/actions/workflows/quality.yml"><img alt="Quality and security" src="https://github.com/DanielCamiloAmaya/gestion-empleados/actions/workflows/quality.yml/badge.svg"></a>
-  <img alt="Laravel 12" src="https://img.shields.io/badge/Laravel-12-ff2d20?logo=laravel&logoColor=white">
-  <img alt="PHP 8.2+" src="https://img.shields.io/badge/PHP-8.2%2B-777bb4?logo=php&logoColor=white">
-  <img alt="Playwright" src="https://img.shields.io/badge/E2E-22%2F22-2eAD33?logo=playwright&logoColor=white">
-  <img alt="PHPUnit" src="https://img.shields.io/badge/PHPUnit-65_tests-3c9cd7">
-  <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-163b32">
+  <img alt="Laravel 12" src="docs/images/badges/laravel-12.svg">
+  <img alt="PHP 8.2+" src="docs/images/badges/php-82.svg">
+  <img alt="Playwright E2E 22/22" src="docs/images/badges/playwright-e2e.svg">
+  <img alt="PHPUnit 65 tests" src="docs/images/badges/phpunit.svg">
+  <img alt="License MIT" src="docs/images/badges/license-mit.svg">
 </p>
 
 <p align="center">
